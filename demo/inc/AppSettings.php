@@ -1,0 +1,92 @@
+<?php
+/**
+* @package      phpdev
+* @author       Cristian Trifan
+* @copyright    2012 Cristian Trifan
+* @license      Microsoft Public License (Ms-PL)  https://github.com/CrissDev/phpdev/blob/master/license.txt
+*/
+/**
+ * Stores application wide settings
+ */
+class AppSettings
+{
+	// Set this value to null to use the default temporary directory
+	private static $_tempPath = null;
+
+	// Main application log file
+	private static $_logFileName;
+
+	// Whether or not debugging is enabled - App class uses this to set up error reporting
+	private static $_debuggingEnabled = true;
+
+	// Custom log file for PHP errors
+	private static $_phpErrorLog = null;
+
+	// Set this value to null to use the default timezone available
+	private static $_defaultTimezone = 'UTC';
+
+   // Database connection settings
+	private static $_dbSettings = array(
+		'connections' => array(
+			'membership' => array('provider' => 'postgres', 'host' => '127.0.0.1', 'dbname' => 'phpdev_demo', 'user' => 'postgres', 'password' => '', 'logger' => 'membership_db_logger')
+		)
+	);
+
+	public static function getDefaultTimezone()
+	{
+		if (self::$_defaultTimezone === null) {
+			self::$_defaultTimezone = date_default_timezone_get();
+		}
+		return self::$_defaultTimezone;
+	}
+
+	public static function getTempPath()
+	{
+		if (self::$_tempPath === null)
+		{
+			self::$_tempPath = sys_get_temp_dir();
+		}
+		return self::$_tempPath;
+	}
+
+	public static function isDebuggingEnabled()
+	{
+		return self::$_debuggingEnabled;
+	}
+
+	public static function getLogFileName()
+	{
+		if (self::$_logFileName === null)
+		{
+			self::$_logFileName = PathUtil::combine(self::getTempPath(), 'phpdev-' . date('Y-m-d') . '.log');
+			SecUtil::checkStringArgument(self::$_logFileName, '_logFileName', MAX_PATH_LENGTH, false, false, false);
+		}
+		return self::$_logFileName;
+	}
+
+	public static function getPhpErrorLogFileName()
+	{
+		if (self::$_phpErrorLog === null)
+		{
+			self::$_phpErrorLog = PathUtil::combine(self::getTempPath(), 'php-errors.log');
+		}
+		return self::$_phpErrorLog;
+	}
+
+	/**
+	 * Returns information used to connect to a database.
+	 *
+	 * @param string $name The name of the database for which to retrieve the connection information.
+	 * @return array The connection information for the specified database.<br/>
+	 * If the database was not configured to be accessible, an exception is thrown.
+	 */
+	public static function getDbConnectionSettings($name)
+	{
+		SecUtil::checkStringArgument($name, 'name', 20, false, false, false);
+
+		if (array_key_exists($name, self::$_dbSettings['connections']))
+			return self::$_dbSettings['connections'][$name];
+
+		throw new AccessDeniedException('The specified database is not accessible.');
+	}
+}
