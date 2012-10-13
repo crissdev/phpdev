@@ -9,10 +9,6 @@ final class Principal
 	private function __construct(MembershipUser $user = null, array $roles = null)
 	{
 		$this->_user = $user;
-
-		if ($user !== null && $roles === null)
-			throw new ArgumentException('Roles for user must be specified.', 'roles');
-
 		$this->_roles = $roles;
 	}
 
