@@ -12,7 +12,6 @@
 class LoggerManager
 {
 	private static $_loggers = array();
-	private static $_typeMappings = array();
 
 	private function __construct()
 	{
@@ -21,17 +20,19 @@ class LoggerManager
 
 	public static function getLogger($name)
 	{
-		if (array_key_exists($name, self::$_typeMappings))
+		SecUtil::checkStringArgument($name, 'name', -1, true, true, false);
+
+		if (array_key_exists($name, self::$_loggers))
 		{
-			$value = self::$_typeMappings[$name];
+			$value = self::$_loggers[$name];
 
 			if (is_array($value))
 			{
 				$c = new ReflectionClass($value['type']);
 				$instance = $c->newInstanceArgs($value['args']);
-				self::$_typeMappings[$name] = $instance;
+				self::$_loggers[$name] = $instance;
 			}
-			return self::$_typeMappings[$name];
+			return self::$_loggers[$name];
 		}
 		return null;
 	}
@@ -46,24 +47,15 @@ class LoggerManager
 		if (!is_a($instance, 'Logger'))
 			throw new ArgumentException('Instance must derive from Logger.', 'instance');
 
-		self::$_typeMappings[$name] = $instance;
+		self::$_loggers[$name] = $instance;
 	}
 
-	public static function registerLazyInstance($name, $type, array $ctorParameters = null)
+	public static function registerLazyInstance($name, $type, array $constructorParameters = null)
 	{
 		SecUtil::checkStringArgument($name, 'name', 128, false, false, false);
 		SecUtil::checkStringArgument($type, 'type', 128, false, false, false);
-		SecUtil::checkArrayArgument($ctorParameters, 'ctorParameters', false, true);
+		SecUtil::checkArrayArgument($constructorParameters, 'constructorParameters', false, true);
 
-		self::$_typeMappings[$name] = array('type' => $type, 'args' => $ctorParameters);
+		self::$_loggers[$name] = array('type' => $type, 'args' => $constructorParameters);
 	}
-
-	private static function getKey($type, $name)
-	{
-		if (strlen($name) === 0)
-			return $type;
-
-		return $type . '_' . $name;
-	}
-
 }
