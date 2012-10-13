@@ -1,11 +1,20 @@
 <?php
+/**
+ * @package      phpdev
+ * @author       Cristian Trifan
+ * @copyright    2012 Cristian Trifan
+ * @license      Microsoft Public License (Ms-PL)  https://github.com/CrissDev/phpdev/blob/master/license.txt
+ */
 
+/**
+ *
+ */
 final class RpcSettings
 {
 	private static $_rpcTokenSessionKey = '__rpcToken';
 	private static $_rpcTokenCookieKey = '__rpcCookie';
 	private static $_rpcIpAddressSessionKey = '__rpcIPaddress';
-	private static $_rpcRegenerateTokenFrequency = RPC_REGENERATE_TOKEN_AUTO;
+	private static $_rpcRegenerateTokenFrequency = RPC_REGENERATE_TOKEN_MANUAL;
 	private static $_rpcRequireAuthentication = false;
 
 	// this can even be stricter by also specifying the charset (e.g. application/json; charset=UTF-8)

@@ -1,5 +1,14 @@
 <?php
+/**
+ * @package      phpdev
+ * @author       Cristian Trifan
+ * @copyright    2012 Cristian Trifan
+ * @license      Microsoft Public License (Ms-PL)  https://github.com/CrissDev/phpdev/blob/master/license.txt
+ */
 
+/**
+ *
+ */
 final class Rpc
 {
 	private static $_logger = null;
@@ -68,7 +77,7 @@ final class Rpc
 		$response = self::processRequestCore();
 		self::sendResponse($response);
 
-		self::logEvent(LOGGER_LEVEL_DEBUG, __METHOD__ . ' - Ended' . PHP_EOL . str_repeat('-', 100));
+		self::logEvent(LOGGER_LEVEL_DEBUG, __METHOD__ . ' - Ended');
 	}
 
 	/**
@@ -209,9 +218,6 @@ final class Rpc
 				}
 				$details = sprintf('Method %s.%s threw the following error: %s', $className, $methodName, $e->getMessage());
 				self::logEvent(LOGGER_LEVEL_ERROR, __METHOD__ . " {$details}");
-
-				if ($e->getCode() !== ErrorCodes::E_GENERAL_METHOD_INVOCATION_ERROR)
-					throw new TargetInvocationException(null, $e);
 
 				throw $e;
 			}

@@ -1,9 +1,18 @@
 <?php
+/**
+ * @package      phpdev
+ * @author       Cristian Trifan
+ * @copyright    2012 Cristian Trifan
+ * @license      Microsoft Public License (Ms-PL)  https://github.com/CrissDev/phpdev/blob/master/license.txt
+ */
 
+/**
+ *
+ */
 class MembershipSettings
 {
 	private static $_dbSettingName = 'membership';
-	private static $_dbSchema = 'admin';
+	private static $_dbSchema = 'master';
 	private static $_enablePasswordRetrieval = false;
 	private static $_requireUniqueEmail = true;
 	private static $_userOnlineTimeWindow = 15;	// 15 minutes
