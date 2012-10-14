@@ -427,8 +427,8 @@ where
 
 	public static function updateUser(MembershipUser $user)
 	{
-		$query = sprintf('update %s set first_name = $2::character varying(60), last_name = $3::character varying(30), last_activity_date = $4::timestamp without time zone, last_login_ip = $5::character varying(15), auth_token = $6::character varying(32), last_login_date = $7::timestamp without time zone where user_id = $1::int', self::getQualifiedTableName('users'));
-		$params = array($user->getId(), $user->getFirstName(), $user->getLastName(), $user->getLastActivityDate() === null ? null : $user->getLastActivityDate()->format('Y-m-d H:i:s'), $user->getLastLoginIp(), $user->getAuthToken(), $user->getLastLoginDate() ? $user->getLastLoginDate()->format('Y-m-d H:i:s') : null);
+		$query = sprintf('update %s set first_name = $2::character varying(60), last_name = $3::character varying(30), last_activity_date = $4::timestamp without time zone, last_login_ip = $5::character varying(15), auth_token = $6::character varying(32), last_login_date = $7::timestamp without time zone, email = $8::character varying(128) where user_id = $1::int', self::getQualifiedTableName('users'));
+		$params = array($user->getId(), $user->getFirstName(), $user->getLastName(), $user->getLastActivityDate() === null ? null : $user->getLastActivityDate()->format('Y-m-d H:i:s'), $user->getLastLoginIp(), $user->getAuthToken(), $user->getLastLoginDate() ? $user->getLastLoginDate()->format('Y-m-d H:i:s') : null, $user->getEmail());
 
 		$db = self::getMembershipDatabase();
 		$rowsAffected = $db->executeNonQuery($query, $params);

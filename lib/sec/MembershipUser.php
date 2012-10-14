@@ -76,6 +76,12 @@ class MembershipUser
 		return $this->_email;
 	}
 
+	public function setEmail($value)
+	{
+		SecUtil::checkEmailAddress($value, 'value', 128, false, false, MembershipSettings::getCheckEmailDomain());
+		$this->_email = $value;
+	}
+
 	public function getFirstName()
 	{
 		return $this->_firstName;

@@ -212,7 +212,7 @@ class SecUtil
 		if ($verifyDomain) {
 			list($name, $domain) = explode('@', $argument);
 			if (!checkdnsrr($domain, 'MX'))
-				throw new ArgumentException('The value passed is not a valid email address. Invalid DNS.');
+				throw new ArgumentException('The value passed is not a valid email address. Invalid DNS.', $argumentName);
 		}
 	}
 

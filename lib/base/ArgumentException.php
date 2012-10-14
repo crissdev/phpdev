@@ -24,7 +24,7 @@ class ArgumentException extends ApplicationException
 			}
 			$message .= PHP_EOL . "Parameter name: $argumentName";
 		}
-		else
+		else if (strlen($message) == 0)
 		{
 			$message = 'Value does not fall within the expected range.';
 		}
