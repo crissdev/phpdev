@@ -1,4 +1,10 @@
 <?php
+/**
+ * @package      phpdev
+ * @author       Cristian Trifan
+ * @copyright    2012 Cristian Trifan
+ * @license      Microsoft Public License (Ms-PL)  https://github.com/CrissDev/phpdev/blob/master/license.txt
+ */
 
 require 'wsinit.php';
 
@@ -14,43 +20,34 @@ require 'wsinit.php';
     <link href="css/general.css" type="text/css" rel="stylesheet"/>
 
     <script src="js/jquery.js"></script>
+    <script src="js/jquery.ui.core.js"></script>
+	<script src="js/jquery.ui.widget.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/json.js"></script>
+	<script src="js/common.js"></script>
+    <script src="js/jquery.ui-current-user.js"></script>
 </head>
 <body>
 	<header>
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container">
-
-					<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
-
-					<!-- Be sure to leave the brand out there if you want it shown -->
-					<a class="brand" href="#">phpdev</a>
-<?php
-//					<!-- Everything you want hidden at 940px or less, place within here -->
-//					<div class="nav-collapse">
-//						<ul class="nav">
-//							<li><a href="">Home</a></li>
-//						</ul>
-//                        <div class="btn-group pull-right">
-//							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-//								<i class="icon icon-user"></i>
-//								<span class="current-user-name">User</span>
-//								<span class="caret"></span>
-//							</a>
-//							<ul class="dropdown-menu">
-//								<li><a href="#login">Login</a></li>
-//								<li class="divider"></li>
-//								<li><a href="#register">Register</a></li>
-//							</ul>
-//                    	</div>
-//					</div>
-?>
+					<a class="brand" href="index.php">phpdev</a>
+					<div class="btn-group pull-right ui-current-user">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							<i class="icon icon-user"></i>
+							<span class="user-name">User</span>
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="login.php">Login</a></li>
+							<li class="divider"></li>
+							<li><a href="register.php">Register</a></li>
+							<li><a href="profile.php">Profile</a></li>
+                            <li class="divider"></li>
+							<li><a href="logout.php">Log Out</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -109,7 +106,7 @@ require 'wsinit.php';
 	</div>
 
 
-	<footer style="margin-top: 30px; margin-bottom: 30px; text-align: center; font-size: small;">
+	<footer>
 
 		<div class="container">
 			<div class="row">
@@ -119,5 +116,13 @@ require 'wsinit.php';
 
 	</footer>
 
+
+	<script>
+		jQuery.noConflict();
+		jQuery(function($)
+		{
+			$('.ui-current-user').currentUser();
+		});
+	</script>
 </body>
 </html>
