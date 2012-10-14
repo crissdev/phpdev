@@ -13,6 +13,8 @@ require 'wsinit.php';
 <html>
 <head>
     <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
     <title>phpdev</title>
 
     <link href="css/bootstrap.css" type="text/css" rel="stylesheet"/>
