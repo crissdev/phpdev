@@ -100,8 +100,8 @@ class JsonUtil
 				case '{':
 				case '[':
 					if (!$in_string) {
-						$new_json .= $char . $newLine . str_repeat($tab, $indent_level + 1);
 						$indent_level++;
+						$new_json .= $char . $newLine . str_repeat($tab, $indent_level);
 					}
 					else
 						$new_json .= $char;
@@ -133,7 +133,11 @@ class JsonUtil
 							$in_string = false;
 					}
 					else
+					{
 						$in_string = true;
+					}
+					$new_json .= $char;
+					break;
 				default:
 					$new_json .= $char;
 					break;
