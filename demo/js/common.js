@@ -6,6 +6,7 @@
  */
 JSRPC_URL = 'jsrpc.php';
 JSRPC_CONTENT_TYPE = 'text/json';
+JSRPC_TIMEOUT = 30 * 1000;
 JSRPC_ERROR_UNSPECIFIED = 0;
 JSRPC_ERROR_INVALID_SERVER_RESPONSE = 1;
 JSRPC_ERROR_REQUEST_FAILED = 2;
@@ -31,6 +32,7 @@ function doRpcRequest(method, params, context, onSuccess, onError, userData)
 			context: context,
 			dataType: 'json',
 			data: request,
+			timeout: JSRPC_TIMEOUT,
 
 			success: function(response)
 			{
