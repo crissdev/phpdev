@@ -94,7 +94,7 @@ class App
 		return self::$_includePaths;
 	}
 
-	private function setCustomPhpErrorLog()
+	private static function setCustomPhpErrorLog()
 	{
 		$customPhpErrorLog = AppSettings::getPhpErrorLogFileName();
 
